@@ -1,0 +1,31 @@
+name: Build LaTeX document
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install TeX Live and dependencies
+        uses: xu-cheng/latex-action@v2
+        with:
+          # latexmk will be available in PATH
+          # action installs a reasonable TeX Live distribution
+          # no inputs required for many documents
+          
+      - name: Compile LaTeX (latexmk)
+        run: |
+          latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
+
+      - name: Upload compiled PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: rita_paper_pdf
+          path: main.pdf
