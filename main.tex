@@ -1,0 +1,42 @@
+% Main LaTeX skeleton for RITA paper
+% NOTE: replace the documentclass with the official JHEP class in your Overleaf template if you prefer.
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{caption}
+\usepackage{subcaption}
+
+% Metadata
+\title{Initial characterisation of electron recombination in high-pressure xenon using the RITA setup}
+\author{P. Herrero et al.}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+% Short abstract placeholder. Replace with final text.
+We present measurements of electron recombination in high-pressure xenon using the RITA radium-ion tagging setup. Using alpha-tagged recoil events and X-ray calibration, we quantify the detected-electron yield and recombination fraction for Ra224 and Rn220 recoils under different drift and EL field settings.
+\end{abstract}
+
+\tableofcontents
+
+% --- Sections (content in sections/ directory) ---
+\input{sections/introduction.tex}
+\input{sections/experiment.tex}
+\input{sections/methods.tex}
+\input{sections/results.tex}
+\input{sections/discussion.tex}
+\input{sections/conclusions.tex}
+
+\appendix
+\input{sections/appendix.tex}
+
+\bibliographystyle{plain}
+\bibliography{refs}
+
+\end{document}

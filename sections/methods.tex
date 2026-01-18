@@ -1,0 +1,15 @@
+\section{Data processing and analysis}
+\label{sec:methods}
+
+This section summarises the data processing steps used in the analysis. The codebase used for the analysis is the \texttt{RaTag} package (commit hash: add-here). The main steps are:
+
+\begin{enumerate}
+  \item Run initialization and set discovery: raw waveform directories are scanned and sets are represented by a \texttt{SetPmt} dataclass. Files are loaded lazily to avoid excessive memory usage.
+  \item S1/S2 timing estimation (preparation): statistical estimation of S1 and S2 windows from a subset of frames; results are saved and reused.
+  \item Alpha energy mapping and calibration: silicon detector peaks are reconstructed (Savitzky--Golay smoothing) and fitted to identify alpha peak positions and isotope ranges.
+  \item Recoil S2 extraction and fitting: using the S2 windows, peaks are identified and integrated; histograms are built per set and fitted (Gaussian / CrystalBall with optional background subtraction) to obtain mean S2 and confidence intervals.
+  \item X-ray calibration (gS2): the mean X-ray S2 area is obtained from dedicated X-ray runs and converted to a gain factor $g_{S2}$ using the known X-ray energy and an assumed $W$-value.
+  \item Recombination calculation: S2 areas are converted to numbers of detected electrons $N_e= A_{ion}/g_{S2}$ and recombination fraction $r=1 - N_e/N_{e,exp}$, where $N_{e,exp}$ is computed from recoil energy and $W$.
+\end{enumerate}
+
+All relevant configuration parameters are stored in YAML files (examples in `RaTag/configs/`); include the exact config filenames used for the plots in an appendix or the repository release.
