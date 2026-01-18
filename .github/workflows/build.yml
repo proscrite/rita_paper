@@ -15,11 +15,6 @@ jobs:
 
       - name: Install TeX Live and dependencies
         uses: xu-cheng/latex-action@v2
-        with:
-          # latexmk will be available in PATH
-          # action installs a reasonable TeX Live distribution
-          # no inputs required for many documents
-          
       - name: Compile LaTeX (latexmk)
         run: |
           latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
