@@ -1,4 +1,191 @@
 \section{Appendix: Additional material}
 \label{sec:appendix}
 
-Include config excerpts, detailed fit tables, and additional diagnostic plots here. Also include the exact `RaTag` commit hash and `configs/*.yaml` used to produce the figures.
+Include config excerpts, detailed fit tables, and additional diagnostic plots here. Also include
+the exact `RaTag` commit hash and `configs/*.yaml` used to produce the figures.
+
+Here we will include the following complementary measurements:
+\begin{enumerate}
+    \item Transmission efficiency measurements with Cf source
+    \item Gamma spectroscopy analysis to obtain the activity of \isotope{Ra}{224}
+    \item MC simulation to estimate the collection efficiency (solid angle)
+    \item EL yield dependency on the EL field.
+\end{enumerate}
+
+\subsection{Gate Transmission Efficiency}
+
+To accurately reconstruct the ionization yield of the thermalized \isotope{Ra}{224} recoils, the
+electron transmission efficiency (also referred to as grid transparency) of the gate electrode must
+be precisely characterized. This efficiency dictates the fraction of ionization electrons that
+successfully pass from the drift region into the electroluminescence (EL) gap to produce the
+secondary scintillation signal.
+
+The transmission measurement was performed using the exact detector geometry as the primary
+experiment—the same chamber with a drift gap of 1.4 cm and an EL gap of 0.8 cm delimited by
+identical gate and anode meshes. However, to generate a macroscopic and stable direct current (DC)
+suitable for electrometer readings, the active silicon PIN detector and \isotope{Th}{228} source
+were replaced with a passive 50 kHz \isotope{Cf}{252} source. The high emission rate of the
+\isotope{Cf}{252} source provided a continuous, uniform flux of ionizing radiation throughout the
+active volume.
+
+The DC current was continuously monitored on the gate electrode ($I_{\text{gate}}$) using a
+precision electrometer (Keithley 6514). The measurement relies on normalizing the current against a
+zero-transmission baseline. By setting the anode voltage to zero ($V_{\text{anode}} = 0$), the
+electric field in the EL gap is nullified ($E_{\text{EL}} = 0$). Under this condition, all
+electrons drifting towards the gate are collected by it, providing the normalization current
+$I_{0}$. The stability of this baseline across varying cathode voltages is demonstrated in
+\ref{fig:apx_transmission}a confirming complete electron drift saturation and the validity of the
+$I_0$ measurement.
+
+As the anode voltage is increased and the EL field is established, a fraction of the drifting
+electrons is extracted through the gate mesh and into the EL gap. This results in a measurable
+depletion of the gate current (\ref{fig:apx_transmission}b). The gate transmission efficiency $T$
+is therefore directly determined by this depletion relative to the baseline:
+
+$$T = 1 - \frac{I_{\text{gate}}}{I_{0}}$$
+
+Measurements were taken across a wide range of cathode, gate, and anode voltages to map the
+transmission efficiency. According to standard electrostatic models of wire meshes, electron
+transparency should scale primarily with the ratio of the fields on either side of the grid, $R =
+E_{\text{drift}} / E_{\text{EL}}$. The experimental data confirms this primary scaling behavior,
+though it reveals a persistent secondary dependence on the absolute drift field. When parameterized
+by the ratio $R$, the transmission data forms a structured family of curves
+(\ref{fig:apx_transmission}c). To accurately capture this behavior, the data was parameterized
+using a ``dynamic" sigmoid function. In this empirical model, the standard sigmoid
+coefficients—namely the steepness ($k$) and the inflection point ($x_0$)—are not fixed constants,
+but are instead evaluated as continuous functions of $E_{\text{drift}}$. This approach seamlessly
+bridges the individual curves, yielding a complete 2D analytical surface for the gate transmission
+across the entire operational parameter space (\ref{fig:apx_transmission}d). This transparency
+surface is used throughout the primary data analysis to systematically correct the measured charge
+yields for any given combination of drift and EL fields.
+
+This universal relationship was successfully parameterized using a dynamic sigmoid function,
+yielding a continuous, 2D analytical model for the gate transmission across the entire operational
+parameter space (\ref{fig:apx_transmission}d). This transparency surface is used throughout the
+primary data analysis to systematically correct the measured charge yields for any given
+combination of drift and EL fields. Further consistency checks were performed by sweeping the gate
+voltage at constant anode and cathode potentials; the resulting transmission efficiencies were
+found to be in excellent agreement with the universal $R$-factor model.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.95\textwidth]{transmission_eff_v0.png}
+    \caption{Characterization of the gate transmission efficiency (GTE) using a 50 kHz \isotope{Cf}{252} source.
+        \textbf{(a)} Collection saturation curve at $V_{\text{anode}} = 0$, demonstrating that the gate current ($I_0$) remains stable
+        across varying cathode voltages, ensuring complete electron collection for baseline normalization.
+        \textbf{(b)} Raw braking efficiency measurements, showing the depletion of the measured gate current as a function of the
+        applied anode voltage for several fixed drift fields.
+        \textbf{(c)} The calculated gate transmission efficiency ($T = 1 - I_{\text{gate}}/I_0$) plotted against the electrostatic field ratio
+        $R = E_{\text{drift}}/E_{\text{EL}}$. The data forms a family of curves exhibiting a secondary dependence on the drift field,
+        fitted with a dynamic sigmoid model (dashed lines).
+        \textbf{(d)} he resulting 2D transmission model surface. By treating the sigmoid coefficients as functions of
+        $E_{\text{drift}}$, the model provides a continuous interpolation of the gate transparency across the operational parameter space.
+    }
+    \label{fig:apx_transmission}
+\end{figure}
+
+\subsection{Gamma Spectroscopy and \isotope{Ra}{224} Desorption Efficiency}
+
+To quantify the efficiency of \isotope{Ra}{224} recoiling out of the \isotope{Th}{228} source and
+implanting into the aluminum catcher foil, the collected activity was independently measured using
+a Hidex AMG gamma spectrometer. The foil was exposed to the source under vacuum for accumulation
+periods ranging from 5 to 9 days, after which it was transferred to the spectrometer to monitor the
+subsequent radioactive decay.
+
+\subsubsection{Spectral Analysis and Peak Fitting}
+The primary signature used for this analysis is the prominent $\sim$240 keV gamma peak, which is a
+convolution of the 241.0 keV emission from \isotope{Ra}{224} ($4.1\%$ branching ratio) and the
+238.6 keV emission from its daughter \isotope{Pb}{212} ($43.6\%$ branching ratio). For each
+discrete scan, the region of interest was fitted with a Gaussian profile atop a linear background
+using strictly Poisson-weighted error minimization to extract the net area
+(\ref{fig:apx_gamma_spec} a).
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.95\textwidth]{gamma_spec_v0.png}
+    \caption{\isotope{Ra}{224} desorption efficiency measurement using gamma spectroscopy.
+        \textbf{(a)} Example gamma spectrum with the fit to the Ra peak.
+        \textbf{(b)} Bateman decay curve for one of the measurements.
+        \textbf{(c)} Bar chart summarizing accumulated activities vs. theoretical maximum capacities.
+    }
+    \label{fig:apx_gamma_spec}
+\end{figure}
+
+\subsubsection{Decay Kinetics and Bateman Modeling}
+Because the $\sim$240 keV peak is dominated by the high-branching-ratio \isotope{Pb}{212} daughter,
+the observed count rate evolves dynamically as \isotope{Pb}{212} grows into transient equilibrium
+with the parent \isotope{Ra}{224}, before ultimately decaying with the 3.63-day half-life of
+\isotope{Ra}{224}. To disentangle the populations, the time-series net count rates were fitted to
+the coupled Bateman equations (\ref{fig:apx_gamma_spec} b).
+
+By leaving the initial \isotope{Pb}{212} population ($N_{\text{Pb,0}}$) as a free parameter, the
+fit intrinsically diagnoses the loss of the intermediate \isotope{Rn}{220} gas. The fits
+consistently indicated near-zero or negative initial \isotope{Pb}{212} populations when
+back-propagated, physically confirming that the vast majority of the \isotope{Rn}{220} escapes the
+foil during the vacuum accumulation and subsequent transfer phases.
+
+\subsubsection{Saturation Capacity and Desorption Efficiency}
+The extracted $t=0$ populations were decay-corrected backwards across the transfer delay to
+determine the exact number of accumulated \isotope{Ra}{224} atoms at the end of the vacuum
+exposure. Because the foils were exposed for finite durations (achieving $60\% - 82\%$ of total
+saturation), these values were extrapolated to their theoretical absolute saturation capacity,
+$\Gamma_{\text{Ra, max}}$, where the recoil collection rate exactly equals the decay rate
+(\ref{fig:apx_gamma_spec} c).
+
+To determine the absolute desorption probability ($P_{\text{desorp}}$), the saturation capacity of
+the foil ($\Gamma_{\text{Ra, max}} \approx 18.3$ Bq) was compared to the true activity of the
+\isotope{Th}{228} source. To circumvent severe data acquisition (DAQ) dead-time issues discovered
+in high-speed waveform digitizers, the source activity was independently measured using
+hardware-binned Multi-Channel Analyzer (MCA) alpha spectroscopy, yielding a decay-corrected ground
+truth of $\Gamma_{\text{Th}} \approx 45.7$ Bq at the time of the gamma measurements.
+
+Assuming the aluminum foil subtends approximately half of the $4\pi$ solid angle
+($\epsilon_{\text{geom}} \approx 0.5$), the desorption probability is given by:
+
+$$P_{\text{desorp}} = \frac{\Gamma_{\text{Ra, max}}}{\Gamma_{\text{Th}} \cdot \epsilon_{\text{geom}}}$$
+
+Using the measured values, we find a desorption probability of $P_{\text{desorp}} \approx 80\%$.
+This high efficiency confirms that the \isotope{Th}{228} source is highly diluted and sparse,
+approaching a monolayer. The vast majority of \isotope{Ra}{224} atoms directed upward successfully
+escape the source substrate without being fully attenuated by self-absorption, validating this
+setup as a highly efficient mechanism for \isotope{Ra}{224} tagging.
+
+\subsection{Geometric Acceptance Correction for X-ray measurements}
+
+To accurately calibrate the S2 light yield of $^{224}\text{Ra}$ recoils using 12.3 keV X-rays, it
+is necessary to account for the disparity in their spatial distributions. The recoils are emitted
+from a highly localized 5 mm radius source at the center of the cathode and possess a negligible
+penetration range in the gas. Consequently, their primary ionization tracks are produced strictly
+on-axis. In contrast, the 12.3 keV X-rays are emitted isotropically and have a mean free path of
+$\lambda \approx$ 2.5 cm in Xenon at 2 bar, leading to interaction vertices distributed throughout
+the drift volume ($r <$ 6.0 cm, $z <$ 1.4 cm).
+
+Because the photomultiplier tube (PMT) subtends a smaller solid angle for off-axis events, an
+uncorrected X-ray calibration would underestimate the true light yield at the center of the
+detector. To quantify this effect, a Monte Carlo simulation was developed to map the relative
+geometric detection efficiency.
+
+The simulation models isotropic emission from the cathode source disk and propagates the X-rays
+using the photoelectric attenuation length. For each valid interaction within the drift region, the
+relative solid angle $\Omega \propto 1/d^2$ is calculated from the center of the
+electroluminescence (EL) gap to the PMT window. These efficiencies are normalized to the average
+acceptance of the centralized recoils.
+
+The results of this simulation are illustrated in \ref{fig:apx_mc_xrays}.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.95\textwidth]{mc_xray_efficiency.png}
+    \caption{Monte Carlo simulation of the geometric acceptance for calibration X-rays.
+        \textbf{Top Left:} Spatial distribution of accepted X-ray interaction vertices within the 1.4 cm drift region.
+        \textbf{Top Right:} Hexagonal binning heatmap showing the relative detection efficiency, normalized to an average on-axis recoil event.
+        Efficiency drops at higher radii due to the reduced solid angle subtended by the PMT.
+        \textbf{Bottom Left:} Normalized acceptance distributions for both populations, yielding a global geometric correction factor of $G_{ratio} = 0.89$.
+        \textbf{Bottom Right:} Radial acceptance profile $G(r)$ demonstrating the solid angle roll-off as a function of distance from the detector's central axis.
+    }
+    \label{fig:apx_mc_xrays}
+\end{figure}
+The simulation yields a global correction factor of $G_{ratio} = 0.89$. This indicates that, due to
+the "pancak" geometry of the active volume, the spatial spread of the X-rays introduces
+approximately an \textbf{11\%} geometric penalty. The measured average X-ray S2 response must therefore be scaled
+by $1 / G_{ratio}$ to derive the expected standard-candle response for an on-axis event, allowing for an accurate calculation of the recoil quenching factor.
