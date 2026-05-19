@@ -1,7 +1,0 @@
-\contentsline {section}{\numberline {1}Introduction}{1}{section.1}
-\contentsline {section}{\numberline {2}Experimental apparatus}{2}{section.2}
-\contentsline {section}{\numberline {3}Data processing and analysis}{2}{section.3}
-\contentsline {section}{\numberline {4}Results}{2}{section.4}
-\contentsline {section}{\numberline {5}Discussion}{3}{section.5}
-\contentsline {section}{\numberline {6}Conclusions}{3}{section.6}
-\contentsline {section}{\numberline {A}Appendix: Additional material}{3}{appendix.A}

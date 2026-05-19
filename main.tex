@@ -1,7 +1,7 @@
 % Main LaTeX skeleton for RITA paper
 % NOTE: replace the documentclass with the official JHEP class in your Overleaf template if you prefer.
-\documentclass[a4paper,11pt]{article}
-\usepackage[utf8]{inputenc}
+\documentclass[a4paper,11pt, english]{article}
+\usepackage{jheppub}
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
 \usepackage{hyperref}
@@ -9,18 +9,27 @@
 \usepackage{siunitx}
 \usepackage{caption}
 \usepackage{subcaption}
+% Graphics path for figures/ directory
+\graphicspath{{figures/}}
+
+\newcommand{\Rapp}{\ensuremath{\mathrm{Ra}^{2+}}}
+\newcommand{\isotope}[2]{\ensuremath{^{#2}\mathrm{#1}}}
 
 % Metadata
-\title{Initial characterisation of electron recombination in high-pressure xenon using the RITA setup}
-\author{P. Herrero et al.}
+\title{Initial characterization of electron recombination in high-pressure xenon using the RITA setup}
+
+\author{P. Herrero-Gomez, I. Shomroni, L. Arazi}
 \date{\today}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-% Short abstract placeholder. Replace with final text.
-We present measurements of electron recombination in high-pressure xenon using the RITA radium-ion tagging setup. Using alpha-tagged recoil events and X-ray calibration, we quantify the detected-electron yield and recombination fraction for Ra224 and Rn220 recoils under different drift and EL field settings.
+    % Short abstract placeholder. Replace with final text.
+    WWe present measurements of electron recombination in high-pressure xenon using the RITA
+    radium-ion tagging setup. Using alpha-tagged recoil events and X-ray calibration, we quantify
+    the detected-electron yield and recombination fraction for \isotope{Ra}{224} and
+    \isotope{Rn}{220} recoils under different drift and EL field settings.
 \end{abstract}
 
 \tableofcontents
