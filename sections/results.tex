@@ -1,4 +1,115 @@
 \section{Results}
 \label{sec:results}
 
-This section will present the alpha spectra, X-ray calibration, S2 histograms and fits, and the main recombination plots (recombination fraction versus drift field) for the selected runs. Place figures in the `figures/` folder and reference them here.
+\subsection{Ionization yield and recombination}
+
+The primary objective of this experimental campaign is to characterize the electron-ion
+recombination dynamics of heavy nuclear recoils in high-pressure xenon. When traversing a noble
+gas, the recombination fraction of the generated electron-ion pairs is fundamentally governed by
+the localized ionization density ($dE/dx$) of the particle track. Heavy nuclear recoils produce
+exceptionally dense charge topologies compared to lighter or minimum ionizing particles, leading to
+a massive increase in the local Coulomb attraction between thermalized electrons and their parent
+ions.
+
+To extract a measurable electron yield, the applied drift field must be sufficient to overpower
+this dense recombination process. Figure~\ref{fig:collection_eff} illustrates this striking
+disparity by comparing the normalized charge collection efficiency of \isotope{Ra}{224} recoils
+against established literature values for alpha particles and beta electrons \cite{seito,
+bolotnikov_ramsey, henriques_teixeira} as a function of the reduced drift field. While the charge
+yield for alphas and betas approaches saturation at modest reduced fields between $10^{-2}$ and
+$10^{-1}$~kV/cm/bar, the heavy nuclear recoils require drift fields approximately three orders of
+magnitude larger to overcome the severe track recombination and reach a comparable extraction
+plateau.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/collect_effs_alpha_beta_recoils.png}
+    \caption{Normalized charge collection efficiency as a function of reduced drift field. The severe recombination within the dense \isotope{Ra}{224} recoil tracks requires drift fields approximately three orders of magnitude higher to achieve saturation compared to alpha particles and beta electrons (literature data adapted from \cite{seito, bolotnikov_ramsey, henriques_teixeira}).}
+    \label{fig:collection_eff}
+\end{figure}
+
+To quantitatively map this saturation behavior for our specific active source,
+Figure~\ref{fig:golden_plot} presents the measured secondary scintillation (S2) area as a function
+of the applied drift field for \isotope{Th}{228} and \isotope{Ra}{224} decays. The data was
+acquired across five distinct amplification settings ($\Delta V_{\text{THGEM}}$) to rigorously
+evaluate the instrumental response. The raw S2 areas, displayed in a logarithmic scale in
+Figure~\ref{fig:golden_plot}(a,b), illustrate the expected field-dependent signature: at lower
+drift fields, recombination severely suppresses the extractable charge, while increasing the field
+drives a monotonic rise in the extraction efficiency.
+
+To isolate the intrinsic gas physics from the instrumental gain, the S2 areas for each run were
+normalized to their respective maximum values, as shown in linear scale in
+Figure~\ref{fig:golden_plot}(c,d). This normalization collapses the diverse $\Delta
+V_{\text{THGEM}}$ datasets onto a single, consistent saturation curve. This uniform behavior
+confirms that the observed charge yield dynamics are an intrinsic property of the xenon gas and the
+recoil track topology, completely decoupled from the linear amplification response of the THGEM.
+
+The normalized curves demonstrate that the collection efficiency for these heavy recoils reaches a
+stable plateau between 1500~V/cm and 2000~V/cm. Furthermore, at extreme drift fields approaching
+3000~V/cm, a slight upward inflation in the normalized S2 area is observed. This deviation marks
+the threshold where the effective field in the drift gap begins to generate its own mild
+electroluminescence, a secondary effect that will be modeled and discussed in
+Section~\ref{sec:discussion}.
+
+Finally, beyond the general saturation trend, the absolute ionization yield differs markedly
+between the distinct isotopes of the decay chain. Comparing the asymptotic limits in
+Figure~\ref{fig:golden_plot}(a) and \ref{fig:golden_plot}(b), the \isotope{Th}{228} decays
+systematically produce smaller S2 areas than the subsequent \isotope{Ra}{224} decays, hinting at a
+strong mass and energy dependence that warrants a broader isotopic comparison.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=1.0\textwidth]{golden_plot.png}
+    \caption{S2 area saturation curves for heavy nuclear recoils as a function of the applied drift field. (a, b) Raw S2 areas for \isotope{Th}{228} and \isotope{Ra}{224} decays, plotted on a logarithmic y-axis to accommodate the large dynamic range across different $\Delta V_{\text{THGEM}}$ settings. (c, d) The same datasets normalized to their respective maximum values, plotted on a linear y-axis. The collapse of the data onto a unified curve demonstrates that charge collection plateaus between 1500 and 2000~V/cm, independent of the THGEM gain.}
+    \label{fig:golden_plot}
+\end{figure}
+
+\subsection{Isotope-specific yield and structural deviation}
+
+Building upon the saturation dynamics established across the \isotope{Th}{228} and
+\isotope{Ra}{224} decays, we extend the analysis to the full accessible decay chain.
+Figure~\ref{fig:isotope_s2} presents the centroid S2 area for all six primary recoil
+species—\isotope{Th}{228}, \isotope{Ra}{224}, \isotope{Rn}{220}, \isotope{Bi}{212},
+\isotope{Po}{216}, and \isotope{Po}{212}—as a function of the drift field at a fixed amplification
+setting ($\Delta V_{\text{THGEM}} = 800$~V).
+
+While all isotopes exhibit the characteristic low-field recombination and high-field saturation
+plateau, their absolute S2 yields differ significantly. This variance is driven by the distinct
+initial kinetic energies of the recoiling daughters. For instance, the highly energetic 146~keV
+\isotope{Pb}{208} recoil (produced by the \isotope{Po}{212} alpha decay) generates a substantially
+longer and less dense ionization track than the 84~keV \isotope{Ra}{224} recoil. This lower $dE/dx$
+proportionally reduces the electron-ion recombination probability, allowing a greater fraction of
+the primary charge to escape the track and produce a larger S2 signal.
+
+To evaluate whether these measured yields align with standard kinematic expectations, we compare
+the relative S2 areas against the theoretical energy partitioning. According to Lindhard theory,
+only a fraction of a recoiling ion's kinetic energy is channeled into electronic excitation
+(ionization), while the remainder is lost to nuclear quenching (phonon generation).
+Figure~\ref{fig:expected_vs_measured} illustrates this comparison.
+
+In Figure~\ref{fig:expected_vs_measured}(a), the measured S2 areas are normalized to the
+\isotope{Th}{228} response and plotted against the theoretical ratio of electronic energy
+deposition. If the ionization yield scaled perfectly with the Lindhard prediction across all
+species, the data would follow a linear 1:1 relation. Instead, we observe a systematic divergence;
+as we move down the decay chain to higher-energy recoils (such as \isotope{Po}{216} and
+\isotope{Po}{212}), the measured S2 ratio significantly exceeds the theoretical expectation.
+Figure~\ref{fig:expected_vs_measured}(b) displays this same trend in absolute S2 area.
+
+This structural deviation suggests that standard Lindhard partitioning, while broadly applicable,
+may underestimate the electronic stopping power for these highly energetic, heavy nuclear recoils
+in xenon gas, resulting in a higher-than-expected charge extraction efficiency once the
+recombination regime is saturated.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.85\textwidth]{run48_isotope_s2_area.png}
+    \caption{Measured S2 area as a function of drift field for the five primary recoil species in the \isotope{Th}{228} decay chain, acquired at a fixed amplification setting ($\Delta V_{\text{THGEM}} = 800$~V). The distinct saturation plateaus reflect the varying initial kinetic energies of the recoils, where higher-energy daughters (e.g., \isotope{Po}{212}) experience less severe track recombination and yield larger S2 signals.}
+    \label{fig:isotope_s2}
+\end{figure}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=1.0\textwidth]{expected_vs_measured_s2.jpg}
+    \caption{Comparison of theoretical vs. measured charge yields. (a) The ratio of measured S2 areas relative to the \isotope{Th}{228} baseline plotted against the theoretically expected ratio derived from standard Lindhard partitioning. (b) The same structural divergence represented in absolute S2 area (mV$\cdot\mu$s). The data systematically exceed the expected scaling for higher-energy recoils.}
+    \label{fig:expected_vs_measured}
+\end{figure}

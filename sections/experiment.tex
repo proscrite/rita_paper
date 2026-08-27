@@ -1,57 +1,61 @@
 \section{Experimental apparatus}
 \label{sec:experiment}
 
-This section summarizes the hardware used to produce and record the alpha‑tagged recoil events
-analyzed in this work. A photographic overview of the key elements is shown in
-Figure~\ref{fig:setup_photo}.
-
-\subsection{RITA chamber and gas system}
-The RITA apparatus is a small time‑projection chamber (TPC) using gas xenon as active detection
-medium. The main component in the setup is the alpha source, which consists of silicon detector
-with an extremely diluted layer of \isotope{Th}{228} deposited on its active surface. The shielding
-of the detector is grounded and acts as cathode. A conceptual illustration of this source is shown
-in Fig. \ref{fig:setup_schematic}: The \isotope{Th}{228} atoms sit on the surface of the silicon.
-50\% of the alpha decays are emitted inward and tagged by the detector. The \isotope{Ra}{224} ions
-recoil backward into the gas volume and produce a trace of ionization electrons. A homogeneous
-electric drift field is applied between the cathode and a grid, acting as a gate. Another grid
-behind the gate (anode). The TPC is instrumented with a single photomultiplier tube (PMT) for light
-readout The chamber is typically operated with xenon gas at pressures near 2~bar. Typical geometric
-parameters used in the analysis are a drift gap of approximately 1.4~cm and an electroluminescence
-(EL) gap of approximately 0.8~cm; the EL field (anode voltage divided by EL gap) and the gate
-voltage are varied between runs to probe the impact on electron extraction and S2 yield.
-
-The gas handling system (see Fig.~\ref{fig:setup_photo}, left panel) provides continuous
-circulation and purification of the xenon and allows the chamber to be evacuated and re‑filled for
-the neutralization/collection experiments described in Section~\ref{sec:discussion}. The chamber an
-optical window connecting to the PMT chamber.
-
-\subsection{Detectors and readout}
-The PMT provides the fast optical readout used to identify the prompt scintillation (S1) and the
-delayed electroluminescence (S2) produced when ionization electrons are extracted into the EL
-region. Signals are recorded by a fast oscilloscope with multi‑channel acquisition. Typical
-sampling rates used in the runs analyzed here are 5~GS/s. The silicon alpha detector is mounted
-behind the radioactive coating and records the alpha energy and time for each decay; alpha frames
-are correlated with their corresponding PMT frames via a unique identifier (UID) scheme so that
-recoils can be tagged by isotope. The silicon alpha detector used for tagging was custom‑built
-in‑house (not a commercial unit) and is instrumented to provide a prompt energy measurement with
-sufficient resolution to discriminate the \isotope{Th}{228} alpha ROI from nearby satellite peaks;
-its output is routed into a single‑channel analyzer (SCA) and timing logic used in the per‑event
-gate switching.
-
-\subsection{Source and sample geometry}
-The alpha source is a thin \isotope{Th}{228} coating applied to the silicon detector. When an alpha
-decay occurs the alpha particle deposits its energy in the silicon while the recoiling daughter ion
-is ejected into the xenon gas. Depending on the direction, the ion may travel towards the gate/EL
-region where it produces a short ionization track and consequently an S2 signal after drift and EL
-amplification. Figure~\ref{fig:setup_schematic} illustrates the basic geometry: the silicon alpha
-detector, the gate electrode and the sensor (anode/EL region).
-
-\noindent Details on data products and provenance (raw waveform layout, persistent outputs and configuration templates) are given in Section~\ref{sec:methods}.
+This section summarizes the hardware used to produce and record the alpha-tagged recoil events
+analyzed in this work. The current apparatus is housed within the AXOLOTEL-0 system, a cryogenic
+and gas handling platform repurposed from the WiLiX setup \cite{arazi_first_2013, arazi_first_2015,
+erdal_e_liquid_2015}.
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.95\textwidth]{setup_photos.png}
-    \caption{Photograph of the RITA apparatus and gas handling system. The photograph (panels a--b) shows the gas-handling rack, the PMT chamber and the RITA TPC assembly.}
+    \caption{Photograph of the inner detector assembly showing the grounded cathode plate,
+        THGEM amplification stage, and PMT arrangement.}
     \label{fig:setup_photo}
 \end{figure}
 
+\subsection{Chamber and gas system}
+While the AXOLOTEL-0 system is fully capable of liquid noble operations, for this experimental
+campaign it is operated strictly with pure xenon gas at a pressure of 1 bar. Prior to data
+acquisition, the gas is circulated through the purification line for 2-3 days, utilizing a hot
+getter to systematically remove electronegative impurities. The electron drift time is continuously
+monitored during this period until complete stabilization is achieved. For further details on the
+gas line and thermodynamic control, we refer the reader to the foundational literature
+\cite{arazi_first_2013, arazi_first_2015,}.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.95\textwidth]{setup_schematic.png}
+    \caption{Schematic of the internal detector geometry.
+        Alpha decays on the silicon detector produce a prompt signal and
+        eject a recoiling daughter ion into the highly constrained 4.8~mm drift region.}
+    \label{fig:setup_schematic}
+\end{figure}
+
+\subsection{Detector geometry and active source}
+The internal detector assembly operates as a highly constrained drift chamber
+(Figure~\ref{fig:setup_photo} and Figure~\ref{fig:setup_schematic}). The main component in the
+setup is the active source, which consists of a grounded flat plate housing a custom-built central
+silicon PIN detector. The active surface of the silicon is coated with an extremely diluted,
+ultrapure \isotope{Th}{228} layer with an activity of 50~Bq.
+
+A homogeneous electric drift field is established across a narrow 0.48~cm gap between the cathode
+plate and the amplification stage. The proportional electroluminescence (EL) region is driven by a
+0.04~cm Thick Gas Electron Multiplier (THGEM). A Hamamatsu R8520-406-001 photomultiplier tube (PMT)
+is positioned 20~mm from the THGEM anode surface to efficiently capture the secondary scintillation
+(S2) light.
+
+When an alpha decay occurs, the alpha particle deposits its energy in the silicon, producing a
+prompt signal, while the recoiling daughter ion (e.g., \isotope{Ra}{224}) is ejected backward into
+the xenon gas volume.
+
+\subsection{Data acquisition and readout}
+The fast optical readout from the PMT and the prompt energy signals from the silicon PIN detector
+are recorded using a Tektronix DPO 5034 oscilloscope operating at a multi-channel sampling rate of
+5~GS/s. Events are collected continuously across the full range of alpha energies. The selection of
+specific isotope decays is performed entirely offline by setting strict limits on the energy range
+of each alpha peak, allowing for a comprehensive, multi-isotope analysis from a single dataset.
+
+The code employed for data acquisition and analysis is available in the open RaTag repository. The
+software utilizes a flat, functional architecture driven by per-run, self-documenting YAML
+configuration files to ensure complete analytical reproducibility without hidden states.
