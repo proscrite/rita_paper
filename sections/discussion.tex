@@ -1,5 +1,113 @@
 \section{Discussion}
 \label{sec:discussion}
 
-Interpretation of the recombination measurements, comparison to columnar recombination models and
-previous literature, and discussion of the role of EL field and isotope dependence.
+\subsection{Ion kinematics and implantation depth}
+
+To elucidate the physical origins of the isotope-dependent S2 yields and the progressive prominence
+of the low-area background component discussed in Section~\ref{sec:data_processing}, we modeled the
+recoil kinematics using the TRIM (Transport of Ions in Matter) Monte Carlo package
+\cite{ziegler_srim_2010}. The simulation tracks the sequential decay of the \isotope{Th}{228}
+chain, initializing the parent atoms exactly at the surface boundary ($X=0$) of the silicon PIN
+diode in isotropic emission.
+
+Figure~\ref{fig:trim_sim}a presents the evolution of the implantation depth profile for the
+sequential daughter ions. The successive recoils undergo a kinematic random walk through the
+silicon lattice. Consequently, the mean implantation depth increases progressively down the decay
+chain, advancing from 240~\AA\ for the initial \isotope{Ra}{224} recoils to 616~\AA\ for the final
+\isotope{Pb}{208} recoils. Because a single \isotope{Ra}{224} ion can reach a maximum depth of
+approximately 500~\AA, five consecutive decays with comparable kinetic energies logically yield a
+maximum cumulative penetration depth approaching 2500~\AA. It is worth noting that while
+\isotope{Rn}{220} is a neutral noble gas capable of diffusing through the active xenon volume
+before decaying, its diffusion rate within the solid silicon matrix is severely suppressed compared
+to the gas phase, preserving the validity of the localized solid-state random walk model.
+
+This progressive burial directly dictates the fraction of ions capable of escaping back into the
+active xenon gas. For generations 1 through 6, the backscattered escape fraction stabilizes between
+27.6\% and 29.3\% (\isotope{Rn}{220}: 27.7\%, \isotope{Po}{216}: 29.3\%, \isotope{Pb}{212}: 28.7\%,
+\isotope{Pb}{208}: 28.7\%). The simulation was initialized such that the \isotope{Th}{228} parent
+decays undergo isotropic emission at the surface boundary ($X=0$). Consequently, exactly 50\% of
+the \isotope{Ra}{224} (Generation 0) recoils are emitted forward directly into the gas. The
+calculated 8.7\% escape fraction strictly represents the portion of the remaining inward-emitted
+half that successfully backscatters out of the silicon bulk.
+
+The presence of this dominant, unburied population dictates the overall detector response and
+explains a striking feature of the relative S2 yields. As illustrated in
+Figure~\ref{fig:expected_vs_measured}, the measured S2 areas for the majority of the chain scale
+perfectly linearly with the pure kinetic energy of the decay. This high degree of linearity
+suggests that the bulk of the integrated signal is largely unaffected by implantation straggling or
+solid-state energy losses. This behavior is driven by the kinematics of the 50\% of
+\isotope{Ra}{224} ions initially emitted forward into the xenon; these ions feel the repulsing
+drift field and effectively only go backward to plate out onto the cathode surface. Subsequent
+decays therefore originate from an optimal, unburied position. The notable exception to this linear
+scaling is the \isotope{Rn}{220} decay (yielding \isotope{Po}{216} recoils). As a neutral noble
+gas, \isotope{Rn}{220} has a high probability of neutralizing immediately upon emission, allowing
+it to escape the drift field's influence and diffuse into the active volume before decaying, which
+significantly suppresses its extractable S2 yield relative to the kinematic expectation.
+
+When these implanted ions do escape, they emerge with highly degraded kinematics. As shown in
+Figure~\ref{fig:trim_sim}b, the exit kinetic energy forms an extremely broad, continuous spectrum.
+Recoils originating deep within the silicon lose nearly all their kinetic energy to the lattice
+before escaping, emerging into the xenon with energies approaching zero. Only those ions that
+backscatter very near the surface retain their full decay kinematics. While instrumental
+artifacts—such as misaligned drift trajectories or partial gap electroluminescence—are undoubtedly
+present, this severe kinematic degradation is highly suspected to be a primary driving factor
+behind the Gaussian left shoulder observed in the experimental S2 area distributions.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=1.0\textwidth]{trim_simulation.png}
+    \caption{TRIM Monte Carlo simulation of the \isotope{Th}{228} decay chain recoils. (a) Implantation depth profiles demonstrating the progressive bulk burial of sequential daughters via a solid-state random walk. (b) The exit kinetic energy spectrum of the fraction of ions that successfully backscatter into the xenon gas, illustrating the severe energy degradation responsible for the low-yield S2 background components.}
+    \label{fig:trim_sim}
+\end{figure}
+
+\subsection{High-field electroluminescence and geometric shadowing}
+
+As observed in the normalized saturation curves (Figure~\ref{fig:golden_plot}), the extracted S2
+area exhibits a slight but systemic inflation at extreme nominal drift fields approaching 3~kV/cm.
+To determine whether this deviation represents an anomaly in the underlying recombination physics
+or a deterministic instrumental artifact, we developed a 2D electrostatic model of the highly
+constrained 4.8~mm drift region using COMSOL Multiphysics \cite{noauthor_comsol_nodate}.
+
+In our setup, the electrostatic environment is unequivocally dominated by the amplification stage.
+The physical geometry is oriented such that the source/cathode plate is positioned at the bottom
+($z = -4.8$~mm), the THGEM acts as the anode gate at $z = 0$, and the PMT observes from above at $z
+= +20$~mm. Evaluating a sample configuration with a nominal 1~kV/cm upward drift field
+($V_{\text{cathode}} = 0$~V, $V_{\text{THGEM\_bottom}} = 480$~V, and $V_{\text{THGEM\_top}} =
+1240$~V), the internal electric field across the 0.4~mm thickness of the THGEM holes reaches
+approximately 15~to~25~kV/cm.
+
+This intense local amplification field leaks downward out of the 0.25~mm radius holes, fringing
+into the bulk drift gap. Consequently, electrons drifting upward from the cathode cross the xenon
+electroluminescence threshold ($\sim$0.8~kV/cm/bar) before physically entering the THGEM holes. As
+the nominal drift field is varied, the curvature of the incident streamlines is modified,
+effectively shifting the boundary of this electroluminescence "bulge" further downward into the
+drift gap (Figure~\ref{fig:comsol_sim}a).
+
+However, the macroscopic S2 signal recorded by the PMT is strictly gated by the geometric
+acceptance of the detector. Photons generated deep within the THGEM holes possess a relatively
+clear upward solid angle to the PMT. Conversely, photons produced lower down in the fringing field
+are heavily shadowed by the opaque copper and FR4 substrate of the THGEM bottom face; these photons
+must navigate a highly restricted solid angle to successfully thread the hole and reach the sensor
+above.
+
+By numerically integrating the electroluminescence yield along the electron drift streamlines and
+weighting it against a Monte Carlo ray-tracing simulation of this $z$-dependent geometric
+efficiency, we can estimate the total optical yield at the PMT plane. As shown in
+Figure~\ref{fig:comsol_sim}b, this model predicts a net increase in detected photons of
+approximately 25\% when the nominal drift field is raised from its minimum to 3~kV/cm.
+
+While this model successfully demonstrates that the high-field signal inflation is driven by a
+deterministic coupling of fringing electrostatics and optical occlusion---leaving the core
+recombination plateau intact---the quantitative 25\% prediction is likely an overestimation. This
+first-order 2D approximation intrinsically simplifies the complex 3D fringing topologies and
+neglects the transverse diffusion of the thermalized electron cloud as it funnels upward into the
+amplification stage, which would likely smear the boundary conditions. Nevertheless, the
+qualitative agreement firmly establishes this behavior as an instrumental edge-case rather than a
+breakdown of the heavy recoil recombination theory.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=1.0\textwidth]{comsol_sim.jpg}
+    \caption{Electrostatic and optical modeling of the THGEM amplification stage. (a) COMSOL 2D electrostatic simulation of a nominal 1~kV/cm upward drift field configuration, showing the drift streamlines funneling into the THGEM hole from below. The intense internal amplification field leaks into the drift gap, causing electrons to cross the electroluminescence threshold before entering the hole. (b) Estimated photon yield at the PMT plane ($z = +20$~mm) as a function of the nominal drift field, accounting for the severe geometric shadowing of photons produced in the fringing region beneath the substrate.}
+    \label{fig:comsol_sim}
+\end{figure}
